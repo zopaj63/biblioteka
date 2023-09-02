@@ -39,12 +39,13 @@
     <?php
 
     //debuging
-    //error_reporting(E_ALL);
-    //ini_set('display_errors', 1);
-    
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    //debuging end
+
     require "autoload.php";
 
-    $config=new Config("config.ini");
+    $config=new Config("local_config.ini");
     $db=Database::getInstance($config);
     $conn=$db->getConnection();
 
@@ -78,7 +79,7 @@
 
                 if($stmt->execute())
                 {
-                    echo "Knjiga je uspješno dodana" ."<br>" ."<br>";
+                    echo "Knjiga je uspješno dodana!" ."<br>" ."<br>";
                 }
                 else
                 {
@@ -103,9 +104,26 @@
         . "ID autora: " . $row['id_autori']."<br>"
         . "Godina izdanja: " . $row['godina_izdanja']."<br>"
         ."<br>"."<br>";
+
+        // obriši knjigu
+        $idk=$row['id_knjige'];
+        ?>
+        <form action="" method="POST">
+            <input type="hidden" name="obrisi" value="yes">
+            <input type="hidden" name="id_knjige" value="$idk">
+            <input type="submit" value="Obriši knjigu">
+        </form>
+        <hr>
+<?php
     }
 
-    // obriši knjigu
+    if (isset($_POST['obrisi']) && isset($_POST['id_knjige']))
+    {
+      $query  = "DELETE FROM knjige WHERE id_knjige=$idk";
+      $stmt = $conn->prepare($query);
+      $stmt->execute();
+    }
+
 
 ?>
 
