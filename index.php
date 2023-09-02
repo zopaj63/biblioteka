@@ -7,7 +7,7 @@
 </head>
 <body>
     <a href="https://github.com/zopaj63/biblioteka">Git</a>
-    
+
     <h1>Biblioteka</h1>
 
     <h3>Forma za unos knjige:</h3>
@@ -44,7 +44,7 @@
     
     require "autoload.php";
 
-    $config=new Config("local_config.ini");
+    $config=new Config("config.ini");
     $db=Database::getInstance($config);
     $conn=$db->getConnection();
 
