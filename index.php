@@ -45,7 +45,7 @@
 
     require "autoload.php";
 
-    $config=new Config("local_config.ini");
+    $config=new Config("config.ini");
     $db=Database::getInstance($config);
     $conn=$db->getConnection();
 
@@ -83,7 +83,7 @@
                 }
                 else
                 {
-                    echo "Došlo je do greške: " . $stmt->errorInfo()[2];
+                    echo "Došlo je do greške";
                 }
 
         }
@@ -103,7 +103,7 @@
         . "Prezime autora: " . $row['prezime']."<br>"
         . "ID autora: " . $row['id_autori']."<br>"
         . "Godina izdanja: " . $row['godina_izdanja']."<br>"
-        ."<br>"."<br>";
+        ."<br>";
 
         // obriši knjigu
         $idk=$row['id_knjige'];
@@ -121,7 +121,14 @@
     {
       $query  = "DELETE FROM knjige WHERE id_knjige=$idk";
       $stmt = $conn->prepare($query);
-      $stmt->execute();
+      if($stmt->execute())
+      {
+          echo "Knjiga je uspješno obrisana!" ."<br>" ."<br>";
+      }
+      else
+      {
+          echo "Došlo je do greške";
+      }
     }
 
 
