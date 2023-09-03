@@ -45,7 +45,7 @@
 
     require "autoload.php";
 
-    $config=new Config("config.ini");
+    $config=new Config("local_config.ini");
     $db=Database::getInstance($config);
     $conn=$db->getConnection();
 
@@ -62,9 +62,9 @@
     // dodaj knjigu
     if (isset($_POST['dodaj']))
     {
-        $naslov = $_POST['naslov'];
-        $id_autori = $_POST['id_autori'];
-        $godina_izdanja = $_POST['godina'];
+        $naslov = htmlspecialchars($_POST['naslov']);
+        $id_autori = htmlspecialchars($_POST['id_autori']);
+        $godina_izdanja = htmlspecialchars($_POST['godina']);
 
         if (empty($naslov) || empty($id_autori) || empty($godina_izdanja)) 
         {
